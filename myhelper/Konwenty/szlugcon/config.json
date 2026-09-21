@@ -1,0 +1,11 @@
+{
+    "nazwa": "szlugcon",
+    "Login_root": "grue",
+    "Password_root": "$2b$12$YFD9KPI6xqF1D0jqKNtC4.5zmu3ikTIIJzaPC/byK758FLai6jutq",
+    "LAN_DNS_enable": true,
+    "KADRY": true,
+    "PROGRAM": true,
+    "MAGAZYN": true,
+    "SKLEPIK": true,
+    "slug": "szlugcon"
+}

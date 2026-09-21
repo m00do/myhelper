@@ -1,0 +1,95 @@
+{
+  "Dni": [
+    {
+      "nazwa_dnia": "26.08.2026"
+    },
+    {
+      "nazwa_dnia": "27.08.2026"
+    }
+  ],
+  "Program": [
+    {
+      "nazwa_bloku": "Blok horror",
+      "Sale": [
+        {
+          "nazwa_sali": "Trójkąt bermucki",
+          "nr_sali": "0.42",
+          "Punkty_programu": [
+            {
+              "dzien": "26.08.2026",
+              "start": "10:00",
+              "koniec": "23:59",
+              "typ": "Ogladnie horrorów",
+              "prowadzący": "Libe"
+            },
+            {
+              "dzien": "27.08.2026",
+              "start": "12:00",
+              "koniec": "13:00",
+              "typ": "TADC",
+              "prowadzący": "pomarutku"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nazwa_bloku": "Blok Auli",
+      "Sale": [
+        {
+          "nazwa_sali": "Alula główna",
+          "nr_sali": "01",
+          "Punkty_programu": [
+            {
+              "dzien": "26.08.2026",
+              "start": "10:00",
+              "koniec": "11:00",
+              "typ": "autorskie piyu pitu",
+              "prowadzący": "ktoś ważny"
+            },
+            {
+              "dzien": "26.08.2026",
+              "start": "11:00",
+              "koniec": "23:59",
+              "typ": "hlanie",
+              "prowadzący": "Sapkowski"
+            }
+          ]
+        },
+        {
+          "nazwa_sali": "Aula boczna",
+          "nr_sali": "02",
+          "Punkty_programu": [
+            {
+              "dzien": "26.08.2026",
+              "start": "10:00",
+              "koniec": "23:59",
+              "typ": "Druga ksiązka",
+              "prowadzący": "nie polski klub"
+            }
+          ]
+        },
+        {
+          "nazwa_sali": "Koncertówka",
+          "nr_sali": "outdor",
+          "Punkty_programu": [
+            {
+              "dzien": "26.08.2026",
+              "start": "00:00",
+              "koniec": "23:59",
+              "typ": "Narodowy socjalizm",
+              "prowadzący": "Honor"
+            },
+            {
+              "dzien": "27.08.2026",
+              "start": "00:00",
+              "koniec": "19:00",
+              "typ": "Koncert - Urodzony białym",
+              "prowadzący": "Honor"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

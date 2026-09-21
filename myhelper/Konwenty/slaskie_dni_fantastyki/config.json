@@ -1,0 +1,11 @@
+{
+    "nazwa": "Śląskie dni fantastyki",
+    "Login_root": "Grue",
+    "Password_root": "$2b$12$GEwQ5fn5zjNQ1OG3DCO9fuZSBmYZCukPsg9fV4I6xAULB9dc38Bx.",
+    "LAN_DNS_enable": false,
+    "KADRY": true,
+    "PROGRAM": true,
+    "MAGAZYN": true,
+    "SKLEPIK": true,
+    "slug": "slaskie_dni_fantastyki"
+}

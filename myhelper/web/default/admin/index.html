@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FDFAF2">
+<title>Panel administratora – MyHelper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styl.css">
+<style>
+  body{ background:var(--paper); }
+
+  /* nagłówek płaski, bez zaokrąglonej "obudowy" — jak na szkicu */
+  .flat-top{ border-bottom:1.5px solid var(--line); background:var(--paper); }
+  .flat-top-inner{ max-width:1200px; margin:0 auto; padding:18px 20px; display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .flat-top-left{ color:var(--ink-soft); font-size:15px; }
+  .flat-top-title{ font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--ink); }
+  .flat-top-right{ display:flex; align-items:baseline; gap:14px; color:var(--ink-soft); font-size:14px; }
+  .flat-top-right button{ background:none; border:none; color:var(--ink-soft); font-size:14px; font-family:inherit; cursor:pointer; text-decoration:underline; padding:0; }
+  .flat-top-right button:hover{ color:var(--clay); }
+
+  .layout{ max-width:1200px; margin:0 auto; display:flex; align-items:flex-start; min-height:calc(100vh - 64px); }
+  .sidebar{ width:200px; flex-shrink:0; padding:24px 16px 24px 20px; border-right:1.5px solid var(--line); display:flex; flex-direction:column; gap:12px; position:sticky; top:0; }
+  .side-btn{ text-align:left; font-family:var(--font-body); font-weight:700; font-size:14.5px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:13px 16px; cursor:pointer; transition:border-color .15s, background .15s; }
+  .side-btn:hover{ border-color:var(--mint); }
+  .side-btn.active{ border-color:var(--mint); background:#EFF8F4; color:var(--mint-dark); }
+
+  .main-area{ flex:1; min-width:0; padding:24px 20px 60px; }
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  .dane-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:18px; }
+  .dane-card{ border:1.5px solid var(--ink); border-radius:10px; padding:18px; background:#fff; }
+  .dane-card-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:4px; }
+  .dane-card h2{ font-family:var(--font-display); font-size:17px; margin:0; }
+  .dane-card .hint{ margin-bottom:14px; }
+
+  .drop-zone{ background:var(--paper-2); border:1.5px dashed var(--ink-soft); border-radius:999px; padding:26px 20px; text-align:center; cursor:pointer; transition:background .15s, border-color .15s; }
+  .drop-zone:hover, .drop-zone.dragover{ background:#E4F3EC; border-color:var(--mint); }
+  .drop-zone p{ margin:0; font-weight:700; color:var(--ink); font-size:14.5px; }
+  .drop-zone span{ display:block; margin-top:4px; font-size:12px; color:var(--ink-soft); font-weight:400; }
+  .drop-zone input[type=file]{ display:none; }
+
+  .dane-card-footer{ display:flex; justify-content:flex-end; margin-top:12px; }
+
+  .uzytkownicy-layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
+  @media(max-width:820px){ .uzytkownicy-layout{ grid-template-columns:1fr; } }
+
+  .u-row{ display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px dashed var(--line); }
+  .u-row .u-login{ font-weight:700; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .u-row .u-rola{ font-family:var(--font-mono); font-size:11.5px; background:var(--paper-2); border:1px solid var(--line); padding:3px 9px; border-radius:999px; color:var(--ink-soft); white-space:nowrap; }
+  .u-row .u-dzial{ font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+
+  @media(max-width:700px){
+    .layout{ flex-direction:column; }
+    .sidebar{ position:static; width:auto; border-right:none; border-bottom:1.5px solid var(--line); flex-direction:row; padding:16px; }
+    .side-btn{ flex:1; text-align:center; }
+  }
+</style>
+</head>
+<body>
+  <header class="flat-top">
+    <div class="flat-top-inner">
+      <div class="flat-top-left" id="konwentNazwa">nazwa konwentu</div>
+      <div class="flat-top-title">Panel admina</div>
+      <div class="flat-top-right">
+        <span id="kontoLogin"></span>
+        <button id="btnWyloguj" type="button">wyloguj</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <button class="side-btn active" data-view="dane" type="button">Dane</button>
+      <button class="side-btn" data-view="uzytkownicy" type="button">Użytkownicy</button>
+    </nav>
+
+    <main class="main-area">
+      <!-- DANE -->
+      <section class="view active" id="view-dane">
+        <div class="dane-grid" id="daneGrid"></div>
+      </section>
+
+      <!-- UZYTKOWNICY -->
+      <section class="view" id="view-uzytkownicy">
+        <div class="uzytkownicy-layout">
+          <div>
+            <h2 style="font-family:var(--font-display); font-size:17px; margin:0 0 10px;">Konta paneli <span class="count-pill" id="uCount">0</span></h2>
+            <div id="uzytkownicyLista"></div>
+            <p class="empty-hint" id="uzytkownicyPusto" style="display:none;">Brak dodatkowych kont — konto root loguje się danymi z tworzenia konwentu.</p>
+          </div>
+          <div class="paper-card" style="margin:0;">
+            <h2>Dodaj konto</h2>
+            <form id="formNowyUzytkownik" class="form-grid">
+              <label>Login
+                <input type="text" id="nowyLogin" required>
+              </label>
+              <label>Hasło
+                <input type="text" id="nowyHaslo" required>
+              </label>
+              <label>Rola
+                <select id="nowaRola" required>
+                  <option value="admin">Administrator</option>
+                  <option value="program">Program</option>
+                  <option value="kadry">Kadry</option>
+                  <option value="magazyn">Magazyn</option>
+                  <option value="sklepik">Sklepik</option>
+                </select>
+              </label>
+              <label>Dział (opcjonalnie, dla kadr/programu)
+                <input type="text" id="nowyDzial">
+              </label>
+              <button type="submit" class="btn btn-primary">Dodaj konto</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/assets/klient.js"></script>
+<script>
+(function(){
+  const sesja = MyHelper.wymagajZalogowania(['admin']);
+  if (!sesja) return;
+
+  document.getElementById('konwentNazwa').textContent = sesja.nazwaKonwentu;
+  document.getElementById('kontoLogin').textContent = sesja.login;
+  document.getElementById('btnWyloguj').addEventListener('click', MyHelper.wyloguj);
+
+  // --- przełączanie widoków w pasku bocznym ---
+  document.querySelectorAll('.side-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.side-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + btn.dataset.view));
+    });
+  });
+
+  // ============== DANE ==============
+  const TYPY = [
+    { klucz: 'program', nazwa: 'Program', opis: 'Blok, sale i punkty programu — plik eksportowany z narzędzia „program.html”.' },
+    { klucz: 'kadry',   nazwa: 'Kadry',   opis: 'Wolontariusze, działy i grafik dyżurów — plik eksportowany z narzędzia „grafik.html”.' },
+    { klucz: 'sklepik', nazwa: 'Sklepik', opis: 'Konfiguracja i lista produktów sklepiku (opcjonalne).' },
+    { klucz: 'magazyn', nazwa: 'Magazyn', opis: 'Stan początkowy magazynu — dowolna struktura JSON.' },
+  ];
+
+  const grid = document.getElementById('daneGrid');
+
+  function formatujDate(iso){
+    if (!iso) return 'nigdy';
+    try { return new Date(iso).toLocaleString('pl-PL', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
+    catch(e){ return iso; }
+  }
+
+  TYPY.forEach(typ => {
+    const card = document.createElement('div');
+    card.className = 'dane-card';
+    card.innerHTML = `
+      <div class="dane-card-head">
+        <h2>${typ.nazwa}</h2>
+        <span class="badge badge-off" id="status-${typ.klucz}">sprawdzanie…</span>
+      </div>
+      <p class="hint">${MyHelper.esc(typ.opis)}</p>
+      <label class="drop-zone" id="drop-${typ.klucz}">
+        <p>Przeciągnij plik tutaj</p>
+        <span>albo kliknij, aby wybrać plik .json</span>
+        <input type="file" accept=".json,application/json" id="plik-${typ.klucz}">
+      </label>
+      <div class="dane-card-footer">
+        <button class="btn btn-ghost" data-download="${typ.klucz}" type="button">⬇ Pobierz aktualny plik</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  async function wgrajPlik(typ, plik){
+    if (!plik) return;
+    try {
+      const tekst = await plik.text();
+      let dane;
+      try { dane = JSON.parse(tekst); }
+      catch(err){ throw new Error('To nie jest poprawny plik .json.'); }
+      await MyHelper.wywolajApi('/api/admin/dane/' + typ, { method: 'POST', body: JSON.stringify(dane) });
+      MyHelper.toast('Wgrano plik: ' + typ, 'ok');
+      odswiezStanDanych();
+    } catch (err) {
+      MyHelper.toast(err.message || 'Nie udało się wgrać pliku.', 'error');
+    }
+  }
+
+  TYPY.forEach(typ => {
+    const input = document.getElementById('plik-' + typ.klucz);
+    const strefa = document.getElementById('drop-' + typ.klucz);
+
+    input.addEventListener('change', (e) => { wgrajPlik(typ.klucz, e.target.files[0]); e.target.value = ''; });
+
+    strefa.addEventListener('dragover', (e) => { e.preventDefault(); strefa.classList.add('dragover'); });
+    strefa.addEventListener('dragleave', () => strefa.classList.remove('dragover'));
+    strefa.addEventListener('drop', (e) => {
+      e.preventDefault();
+      strefa.classList.remove('dragover');
+      const plik = e.dataTransfer.files[0];
+      wgrajPlik(typ.klucz, plik);
+    });
+  });
+
+  grid.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-download]');
+    if (!btn) return;
+    const klucz = btn.dataset.download;
+    try {
+      const dane = await MyHelper.wywolajApi('/api/admin/dane/' + klucz);
+      const blob = new Blob([JSON.stringify(dane, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = klucz + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      MyHelper.toast(err.message || 'Brak pliku do pobrania.', 'error');
+    }
+  });
+
+  async function odswiezStanDanych(){
+    try {
+      const stan = await MyHelper.wywolajApi('/api/admin/stan');
+      TYPY.forEach(typ => {
+        const el = document.getElementById('status-' + typ.klucz);
+        const info = stan[typ.klucz];
+        if (!el || !info) return;
+        if (info.wgrane) {
+          el.textContent = 'wgrane · ' + formatujDate(info.aktualizacja);
+          el.className = 'badge badge-ok';
+        } else {
+          el.textContent = 'brak pliku';
+          el.className = 'badge badge-off';
+        }
+      });
+    } catch (err) {
+      MyHelper.toast(err.message, 'error');
+    }
+  }
+
+  // ============== UZYTKOWNICY ==============
+  const NAZWY_ROL = { admin: 'Administrator', program: 'Program', kadry: 'Kadry', magazyn: 'Magazyn', sklepik: 'Sklepik' };
+
+  async function odswiezUzytkownikow(){
+    const lista = document.getElementById('uzytkownicyLista');
+    const pusty = document.getElementById('uzytkownicyPusto');
+    try {
+      const uzytkownicy = await MyHelper.wywolajApi('/api/admin/uzytkownicy');
+      document.getElementById('uCount').textContent = uzytkownicy.length;
+      pusty.style.display = uzytkownicy.length === 0 ? 'block' : 'none';
+      lista.innerHTML = uzytkownicy.map(u => `
+        <div class="u-row">
+          <span class="u-login">${MyHelper.esc(u.login)}</span>
+          <span class="u-rola">${MyHelper.esc(NAZWY_ROL[u.rola] || u.rola)}</span>
+          ${u.dzial ? `<span class="u-dzial">dział: ${MyHelper.esc(u.dzial)}</span>` : ''}
+          <button class="btn-icon btn-icon-danger" data-usun="${MyHelper.esc(u.login)}" title="Usuń" type="button">✕</button>
+        </div>
+      `).join('');
+    } catch (err) {
+      MyHelper.toast(err.message, 'error');
+    }
+  }
+
+  document.getElementById('uzytkownicyLista').addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-usun]');
+    if (!btn) return;
+    if (!confirm('Usunąć konto: ' + btn.dataset.usun + '?')) return;
+    try {
+      await MyHelper.wywolajApi('/api/admin/uzytkownicy/' + encodeURIComponent(btn.dataset.usun), { method: 'DELETE' });
+      MyHelper.toast('Usunięto konto.', 'info');
+      odswiezUzytkownikow();
+    } catch (err) {
+      MyHelper.toast(err.message, 'error');
+    }
+  });
+
+  document.getElementById('formNowyUzytkownik').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const login = document.getElementById('nowyLogin').value.trim();
+    const haslo = document.getElementById('nowyHaslo').value;
+    const rola = document.getElementById('nowaRola').value;
+    const dzial = document.getElementById('nowyDzial').value.trim();
+    try {
+      await MyHelper.wywolajApi('/api/admin/uzytkownicy', { method: 'POST', body: JSON.stringify({ login, haslo, rola, dzial: dzial || undefined }) });
+      MyHelper.toast('Dodano konto: ' + login, 'ok');
+      e.target.reset();
+      odswiezUzytkownikow();
+    } catch (err) {
+      MyHelper.toast(err.message || 'Nie udało się dodać konta.', 'error');
+    }
+  });
+
+  odswiezStanDanych();
+  odswiezUzytkownikow();
+})();
+</script>
+</body>
+</html>

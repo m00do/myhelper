@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1F2E28">
+<title>Panel magazynowy – MyHelper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styl.css">
+</head>
+<body>
+  <header class="shell-top">
+    <div class="shell-top-inner">
+      <div class="app-id">
+        <span class="app-badge">M</span>
+        <div>
+          <h1 class="app-title">Panel magazynowy</h1>
+          <p class="app-tagline">Stan początkowy magazynu</p>
+        </div>
+      </div>
+      <div class="shell-actions">
+        <div class="konwent-note" id="konwentNote">—</div>
+        <button class="btn-logout" id="btnWyloguj" type="button">Wyloguj</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="paper-card">
+      <h2>Stan magazynu</h2>
+      <p class="hint">Dane wgrywa administrator z poziomu panelu administratora. To jest stan początkowy (na dzień wgrania pliku) — ta strona jeszcze go nie modyfikuje.</p>
+      <div id="magazynZawartosc"></div>
+    </div>
+  </main>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/assets/klient.js"></script>
+<script>
+(function(){
+  const sesja = MyHelper.wymagajZalogowania(['magazyn']);
+  if (!sesja) return;
+  MyHelper.ustawNaglowek(sesja);
+
+  function czyListaPrzedmiotow(dane){
+    return dane && Array.isArray(dane.przedmioty) &&
+      dane.przedmioty.every(p => p && typeof p === 'object' && 'nazwa' in p);
+  }
+
+  function renderujTabele(przedmioty){
+    return `
+      <div class="table-wrap">
+        <table class="ledger-table">
+          <thead><tr><th>Przedmiot</th><th>Ilość</th><th>Jednostka</th></tr></thead>
+          <tbody>
+            ${przedmioty.map(p => `
+              <tr>
+                <td class="strong">${MyHelper.esc(p.nazwa)}</td>
+                <td class="mono">${MyHelper.esc(p.ilosc != null ? p.ilosc : '—')}</td>
+                <td>${MyHelper.esc(p.jednostka || '')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  async function odswiez(){
+    const kontener = document.getElementById('magazynZawartosc');
+    try {
+      const dane = await MyHelper.wywolajApi('/api/magazyn/stan');
+      if (czyListaPrzedmiotow(dane)) {
+        kontener.innerHTML = dane.przedmioty.length
+          ? renderujTabele(dane.przedmioty)
+          : '<p class="empty-hint">Plik magazynu nie zawiera żadnych przedmiotów.</p>';
+      } else {
+        // nierozpoznana struktura — pokaż surowy, sformatowany JSON zamiast zgadywać kolumny
+        kontener.innerHTML = `<pre style="white-space:pre-wrap; font-family:var(--font-mono); font-size:12.5px; background:var(--paper-2); padding:14px; border-radius:9px; overflow-x:auto;">${MyHelper.esc(JSON.stringify(dane, null, 2))}</pre>`;
+      }
+    } catch (err) {
+      if (err.status === 404) {
+        kontener.innerHTML = `
+          <div class="stan-pusty">
+            <div class="ikona">📦</div>
+            <h3>Brak wgranych danych</h3>
+            <p>Administrator nie wgrał jeszcze pliku stanu magazynu (magazyn.json).</p>
+          </div>`;
+      } else {
+        MyHelper.toast(err.message, 'error');
+      }
+    }
+  }
+
+  odswiez();
+})();
+</script>
+</body>
+</html>

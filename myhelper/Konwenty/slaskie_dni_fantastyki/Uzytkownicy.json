@@ -1,0 +1,12 @@
+[
+    {
+        "login": "Libe",
+        "Password_hash": "$2b$12$FdsjOq5XB2/ZOZsOMHBJ0ez3JJKe9KeW/I/9MeDaK.EhdvWfAXiqC",
+        "rola": "program"
+    },
+    {
+        "login": "Simson",
+        "Password_hash": "$2b$12$yBYBmEk.sMq4203Hsa.B1OBytxti0kiE.aGKN4nL2HekdpeaqHYuG",
+        "rola": "kadry"
+    }
+]

@@ -1,0 +1,154 @@
+/* MyHelper — wspólny system wizualny dla wszystkich paneli (login/admin/kadry/program/magazyn/sklepik).
+   Oparty na palecie wypracowanej w panelu sklepikowym: ciemnozielona "obudowa", papierowe karty,
+   złoty akcent administracyjny. Każda rola ma własny kolor odznaki, żeby dało się ją rozpoznać
+   na pierwszy rzut oka niezależnie od tego, która strona jest otwarta. */
+:root{
+  --shell:#1F2E28;
+  --shell-2:#28392F;
+  --paper:#FDFAF2;
+  --paper-2:#F1EAD9;
+  --ink:#22302A;
+  --ink-soft:#6B7A6F;
+  --gold:#C89B3C;
+  --gold-dark:#8A6A28;
+  --mint:#2F7A67;
+  --mint-dark:#1E5A4B;
+  --clay:#B8543E;
+  --clay-bg:#FBEEEA;
+  --blue:#2F5DF0;
+  --blue-dark:#1E3FA8;
+  --purple:#8B5CF6;
+  --purple-dark:#5F3BC4;
+  --teal:#0EA5B7;
+  --teal-dark:#0A7684;
+  --line:#E4DCC8;
+  --radius:14px;
+  --shadow:0 8px 24px rgba(31,46,40,0.12);
+  --font-display:'Space Grotesk', system-ui, sans-serif;
+  --font-body:'Manrope', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+}
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper-2); color:var(--ink); font-family:var(--font-body); -webkit-font-smoothing:antialiased; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; }
+a{ color:var(--mint-dark); }
+
+/* ---------- odznaka roli (kolor zmienia się przez atrybut data-rola na body lub .app-badge) ---------- */
+.app-badge{ width:46px; height:46px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:20px; color:#fff; box-shadow:0 3px 8px rgba(0,0,0,0.25); background:linear-gradient(135deg,var(--mint),var(--mint-dark)); }
+[data-rola="admin"] .app-badge, [data-rola="root"] .app-badge{ background:linear-gradient(135deg,var(--gold),var(--gold-dark)); }
+[data-rola="kadry"] .app-badge{ background:linear-gradient(135deg,var(--blue),var(--blue-dark)); }
+[data-rola="program"] .app-badge{ background:linear-gradient(135deg,var(--purple),var(--purple-dark)); }
+[data-rola="magazyn"] .app-badge{ background:linear-gradient(135deg,var(--teal),var(--teal-dark)); }
+[data-rola="sklepik"] .app-badge{ background:linear-gradient(135deg,var(--mint),var(--mint-dark)); }
+
+/* ---------- nagłówek "shell" wspólny dla wszystkich paneli ---------- */
+.shell-top{ background:linear-gradient(180deg, var(--shell), var(--shell-2)); color:#F3EFE2; border-radius:0 0 18px 18px; box-shadow:var(--shadow); }
+.shell-top-inner{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; max-width:1100px; margin:0 auto; padding:22px 20px 14px; flex-wrap:wrap; }
+.app-id{ display:flex; align-items:center; gap:14px; min-width:0; }
+h1.app-title{ font-family:var(--font-display); font-size:clamp(18px,4vw,26px); font-weight:700; letter-spacing:-0.01em; margin:0; line-height:1.15; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:60vw; }
+.app-tagline{ margin:3px 0 0; font-size:12.5px; opacity:0.65; }
+.shell-actions{ display:flex; align-items:center; gap:10px; }
+.konwent-note{ font-family:var(--font-mono); font-size:11.5px; opacity:0.85; white-space:nowrap; background:rgba(255,255,255,0.08); padding:7px 11px; border-radius:8px; }
+.btn-logout{ font-family:var(--font-body); font-weight:700; font-size:12.5px; color:#F3EFE2; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); padding:8px 12px; border-radius:8px; cursor:pointer; }
+.btn-logout:hover{ background:rgba(255,255,255,0.16); }
+
+.tabs{ display:flex; gap:4px; max-width:1100px; margin:0 auto; padding:0 14px; overflow-x:auto; scrollbar-width:none; }
+.tabs::-webkit-scrollbar{ display:none; }
+.tab-btn{ font-family:var(--font-body); font-weight:700; font-size:14px; color:#CFC7AC; background:transparent; border:none; padding:11px 16px; border-radius:10px 10px 0 0; cursor:pointer; white-space:nowrap; transition:background .15s,color .15s; }
+.tab-btn.active{ background:var(--paper-2); color:var(--ink); }
+.tab-btn:hover:not(.active){ background:rgba(255,255,255,0.09); color:#fff; }
+.tab-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:-2px; }
+
+.content{ max-width:1100px; margin:0 auto; padding:24px 16px 72px; }
+.panel{ display:none; }
+.panel.active{ display:block; animation:fadeIn .25s ease; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+/* ---------- karty i typografia ---------- */
+.paper-card{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); margin-bottom:20px; }
+.paper-card h2{ font-family:var(--font-display); font-size:19px; margin:0 0 4px; }
+.paper-card h3{ font-family:var(--font-display); font-size:16px; margin:0 0 4px; color:var(--clay); }
+.hint{ color:var(--ink-soft); font-size:13px; margin:0 0 16px; line-height:1.5; }
+.count-pill{ font-family:var(--font-mono); font-size:12px; background:var(--paper-2); border:1px solid var(--line); padding:2px 9px; border-radius:999px; margin-left:8px; vertical-align:middle; color:var(--ink-soft); }
+
+/* ---------- formularze ---------- */
+.form-grid{ display:grid; gap:14px; max-width:420px; }
+.form-grid.wide{ max-width:640px; }
+label{ display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:700; color:var(--ink-soft); }
+input[type=text], input[type=password], input[type=number], input[type=date], input[type=file], select{ font-family:var(--font-body); font-size:15px; padding:10px 12px; border:1.5px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); width:100%; }
+input:focus, select:focus{ outline:2px solid var(--mint); outline-offset:1px; border-color:var(--mint); }
+input[type=file]{ padding:8px; font-size:13px; }
+
+.btn{ font-weight:700; font-size:14px; padding:11px 18px; border-radius:10px; border:none; cursor:pointer; transition:transform .1s, background .15s; }
+.btn:active{ transform:scale(0.97); }
+.btn:focus-visible{ outline:2px solid var(--mint-dark); outline-offset:2px; }
+.btn-primary{ background:var(--mint); color:#fff; }
+.btn-primary:hover{ background:var(--mint-dark); }
+.btn-secondary{ background:var(--gold); color:#2A2110; }
+.btn-secondary:hover{ background:var(--gold-dark); color:#fff; }
+.btn-ghost{ background:transparent; color:var(--ink-soft); border:1.5px solid var(--line); }
+.btn-ghost:hover{ background:var(--paper-2); }
+.btn-danger{ background:var(--clay); color:#fff; }
+.btn-danger:hover{ background:#9A4433; }
+.btn-block{ width:100%; margin-top:14px; }
+.btn-text{ background:none; border:none; color:var(--clay); font-size:13px; text-decoration:underline; cursor:pointer; padding:0; }
+.btn-icon{ width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:14px; display:inline-flex; align-items:center; justify-content:center; color:var(--ink-soft); flex-shrink:0; }
+.btn-icon:hover{ background:var(--paper-2); }
+.btn-icon-danger{ color:var(--clay); border-color:#E3C9BE; }
+.btn-icon-danger:hover{ background:var(--clay-bg); }
+.form-actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.form-error{ color:#9A4433; background:var(--clay-bg); border:1px solid #E3C9BE; border-radius:9px; padding:10px 12px; font-size:13px; display:none; }
+.form-error.show{ display:block; }
+
+/* ---------- odznaki statusu ---------- */
+.badge{ display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; }
+.badge-ok{ background:#E4F3EC; color:var(--mint-dark); }
+.badge-off{ background:var(--paper-2); color:var(--ink-soft); }
+.badge-warn{ background:#FBEFE3; color:#8A5A22; }
+.badge-live{ background:#FDE7E2; color:#9A4433; }
+.badge-live::before{ content:''; width:6px; height:6px; border-radius:50%; background:#C0503C; display:inline-block; animation:pulse 1.6s infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+/* ---------- tabele ---------- */
+.table-wrap{ overflow-x:auto; }
+.ledger-table{ width:100%; border-collapse:collapse; font-size:13px; }
+.ledger-table th{ text-align:left; font-family:var(--font-display); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); padding:8px 10px; border-bottom:2px solid var(--ink); white-space:nowrap; }
+.ledger-table td{ padding:10px; border-bottom:1px dashed var(--line); vertical-align:middle; }
+.ledger-table tr.trwa-teraz td{ background:#EFF8F4; }
+.ledger-table td.mono{ font-family:var(--font-mono); white-space:nowrap; }
+.ledger-table td.strong{ font-weight:700; }
+
+.empty-hint{ color:var(--ink-soft); font-size:13px; font-style:italic; padding:10px 0 2px; }
+
+/* ---------- strona logowania ---------- */
+.login-wrap{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+.login-card{ width:100%; max-width:380px; background:var(--paper); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:32px 28px; text-align:center; }
+.login-card .app-badge{ margin:0 auto 14px; }
+.login-card h1{ font-family:var(--font-display); font-size:24px; margin:0 0 2px; }
+.login-card p.hint{ margin-bottom:22px; }
+.login-card .form-grid{ max-width:none; text-align:left; }
+
+/* ---------- toasty ---------- */
+.toast-wrap{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; gap:8px; z-index:999; align-items:center; padding:0 14px; width:100%; max-width:420px; }
+.toast{ background:var(--ink); color:#fff; padding:10px 16px; border-radius:9px; font-size:13px; opacity:0; transform:translateY(10px); transition:opacity .25s, transform .25s; box-shadow:var(--shadow); text-align:center; }
+.toast.show{ opacity:1; transform:translateY(0); }
+.toast-error{ background:var(--clay); }
+.toast-ok{ background:var(--mint-dark); }
+.toast-info{ background:var(--gold-dark); }
+
+/* ---------- stan pustego panelu (brak wgranych danych) ---------- */
+.stan-pusty{ text-align:center; padding:40px 20px; }
+.stan-pusty .ikona{ font-size:38px; margin-bottom:10px; }
+.stan-pusty h3{ font-family:var(--font-display); margin:0 0 6px; color:var(--ink); }
+.stan-pusty p{ color:var(--ink-soft); font-size:13.5px; max-width:360px; margin:0 auto; }
+
+@media(max-width:600px){
+  .shell-top-inner{ padding:18px 16px 10px; }
+  h1.app-title{ max-width:50vw; }
+  .paper-card{ padding:16px; }
+  .content{ padding:18px 12px 60px; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}

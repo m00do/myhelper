@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1F2E28">
+<title>Logowanie – MyHelper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styl.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <span class="app-badge" id="badge">MH</span>
+      <h1>MyHelper</h1>
+      <p class="hint">Zaloguj się, aby przejść do swojego panelu.</p>
+
+      <div class="form-error" id="formError"></div>
+      <form id="formLogin" class="form-grid">
+        <label>Login
+          <input type="text" id="login" required autocomplete="username" autofocus>
+        </label>
+        <label>Hasło
+          <input type="password" id="haslo" required autocomplete="current-password">
+        </label>
+        <button type="submit" class="btn btn-primary btn-block" id="btnZaloguj">Zaloguj się</button>
+      </form>
+    </div>
+  </div>
+
+<script src="/assets/klient.js"></script>
+<script>
+(function(){
+  // jeżeli jest już ważna sesja, od razu przejdź do właściwego panelu
+  const istniejaca = MyHelper.wczytajSesje();
+  if (istniejaca && istniejaca.token) {
+    window.location.href = '/panel/' + (istniejaca.rola === 'root' ? 'admin' : istniejaca.rola) + '/';
+    return;
+  }
+
+  const form = document.getElementById('formLogin');
+  const btn = document.getElementById('btnZaloguj');
+  const errBox = document.getElementById('formError');
+
+  function pokazBlad(msg){
+    errBox.textContent = msg;
+    errBox.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errBox.classList.remove('show');
+    const login = document.getElementById('login').value.trim();
+    const haslo = document.getElementById('haslo').value;
+    if (!login || !haslo) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Logowanie…';
+    try {
+      const odp = await MyHelper.wywolajApi('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ login, haslo }),
+      });
+      MyHelper.zapiszSesje(odp);
+      window.location.href = '/panel/' + (odp.rola === 'root' ? 'admin' : odp.rola) + '/';
+    } catch (err) {
+      pokazBlad(err.message || 'Nie udało się zalogować.');
+      btn.disabled = false;
+      btn.textContent = 'Zaloguj się';
+    }
+  });
+})();
+</script>
+</body>
+</html>

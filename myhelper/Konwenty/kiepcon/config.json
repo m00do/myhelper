@@ -1,0 +1,11 @@
+{
+    "nazwa": "kiepcon",
+    "Login_root": "Simson",
+    "Password_root": "$2b$12$7maFEj98iprkdBB4EaqEB.8TfsI39J5oTRmpwHO88Lr5a8Bwh7nZu",
+    "LAN_DNS_enable": true,
+    "KADRY": true,
+    "PROGRAM": true,
+    "MAGAZYN": true,
+    "SKLEPIK": true,
+    "slug": "kiepcon"
+}

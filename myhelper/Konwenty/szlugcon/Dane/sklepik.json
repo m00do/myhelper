@@ -1,0 +1,23 @@
+{
+  "config": {
+    "shopName": "Kapitularz",
+    "specialValue": 0.5
+  },
+  "products": [
+    {
+      "id": "p_q4jwytdzmtvl9v7f",
+      "name": "Mydło",
+      "price": 5,
+      "image": null
+    }
+  ],
+  "transactions": [
+    [
+      "2026-09-10T13:55:01.716Z",
+      "Mydło x6",
+      25,
+      10,
+      30
+    ]
+  ]
+}

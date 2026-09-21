@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FDFAF2">
+<title>Program – MyHelper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styl.css">
+<style>
+  body{ background:var(--paper); }
+
+  .flat-top{ border-bottom:1.5px solid var(--line); background:var(--paper); }
+  .flat-top-inner{ max-width:1300px; margin:0 auto; padding:18px 20px; display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .flat-top-left{ font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--ink); }
+  .flat-top-right{ display:flex; align-items:baseline; gap:14px; color:var(--ink-soft); font-size:14px; }
+  .flat-top-right button{ background:none; border:none; color:var(--ink-soft); font-size:14px; font-family:inherit; cursor:pointer; text-decoration:underline; padding:0; }
+  .flat-top-right button:hover{ color:var(--clay); }
+
+  .content{ max-width:1300px; margin:0 auto; padding:22px 20px 60px; }
+
+  .selector-row{ display:flex; justify-content:flex-end; margin-bottom:18px; }
+  .selector-row label{ display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; color:var(--ink-soft); }
+  .selector-row select{ font-family:var(--font-body); font-size:14.5px; padding:8px 12px; border:1.5px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); min-width:180px; }
+
+  .board-row{ display:flex; gap:22px; align-items:flex-start; }
+  .scroll-wrap{ flex:1; min-width:0; display:flex; align-items:stretch; gap:8px; }
+  .arrow-btn{ flex-shrink:0; width:38px; align-self:center; height:38px; border-radius:50%; border:1.5px solid var(--gold); background:#fff; color:var(--gold-dark); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .arrow-btn:hover{ background:var(--gold); color:#fff; }
+  .arrow-btn:disabled{ opacity:.3; cursor:default; background:#fff; color:var(--gold-dark); }
+
+  .sala-track{ flex:1; min-width:0; display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; padding:20px 4px; border:1.5px solid var(--line); border-radius:24px; background:#fff; }
+  .sala-col{ flex:0 0 240px; display:flex; flex-direction:column; gap:10px; }
+  .sala-col h3{ font-family:var(--font-display); font-size:15px; margin:0 0 2px; text-align:center; color:var(--ink); }
+
+  .punkt-card{ border:1.5px solid var(--ink); border-radius:14px; padding:12px 14px; background:#fff; }
+  .punkt-card .p-nazwa{ font-weight:700; font-size:13.5px; margin-bottom:4px; }
+  .punkt-card .p-info{ font-size:12px; color:var(--ink-soft); line-height:1.5; }
+  .punkt-card.trwa{ background:linear-gradient(135deg, var(--purple), var(--purple-dark)); border-color:var(--purple-dark); color:#fff; }
+  .punkt-card.trwa .p-info{ color:rgba(255,255,255,0.85); }
+
+  .aktualnie-panel{ width:250px; flex-shrink:0; }
+  .aktualnie-panel h3{ font-family:var(--font-display); font-size:16px; margin:0 0 10px; }
+  .aktualnie-box{ border:1.5px solid var(--line); border-radius:18px; padding:14px; background:#fff; min-height:160px; display:flex; flex-direction:column; gap:10px; }
+  .aktualnie-item{ border-bottom:1px dashed var(--line); padding-bottom:8px; }
+  .aktualnie-item:last-child{ border-bottom:none; padding-bottom:0; }
+  .aktualnie-item .a-nazwa{ font-weight:700; font-size:13px; color:var(--purple-dark); }
+  .aktualnie-item .a-info{ font-size:11.5px; color:var(--ink-soft); }
+
+  .uwaga{ font-size:12.5px; color:#8A5A22; background:#FBF6E8; border:1px solid #E9D8B0; border-radius:9px; padding:9px 12px; margin-bottom:16px; }
+
+  @media(max-width:820px){
+    .board-row{ flex-direction:column; }
+    .aktualnie-panel{ width:100%; }
+  }
+</style>
+</head>
+<body>
+  <header class="flat-top">
+    <div class="flat-top-inner">
+      <div class="flat-top-left" id="tytul">nazwa konwentu - Program</div>
+      <div class="flat-top-right">
+        <span id="kontoLogin"></span>
+        <button id="btnWyloguj" type="button">wyloguj</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="uwaga" id="uwagaDzien" style="display:none;">
+      ⚠️ Dane programu nie mają przypisanych prawdziwych dat dziennych — podświetlenie „trwa teraz” działa wyłącznie po godzinie.
+    </div>
+
+    <div class="selector-row">
+      <label>wybierz blok:
+        <select id="wyborBloku"></select>
+      </label>
+    </div>
+
+    <div class="board-row">
+      <div class="scroll-wrap">
+        <button class="arrow-btn" id="strzalkaLewo" type="button">‹</button>
+        <div class="sala-track" id="salaTrack"></div>
+        <button class="arrow-btn" id="strzalkaPrawo" type="button">›</button>
+      </div>
+      <div class="aktualnie-panel">
+        <h3>aktualnie:</h3>
+        <div class="aktualnie-box" id="aktualnieBox"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/assets/klient.js"></script>
+<script>
+(function(){
+  const sesja = MyHelper.wymagajZalogowania(['program']);
+  if (!sesja) return;
+
+  document.getElementById('tytul').textContent = sesja.nazwaKonwentu + ' - Program';
+  document.getElementById('kontoLogin').textContent = sesja.login;
+  document.getElementById('btnWyloguj').addEventListener('click', MyHelper.wyloguj);
+
+  const wyborBloku = document.getElementById('wyborBloku');
+  const salaTrack = document.getElementById('salaTrack');
+  const aktualnieBox = document.getElementById('aktualnieBox');
+  let dane = null;
+
+  function renderBlok(){
+    const blok = (dane.Program || []).find(b => b.id === wyborBloku.value);
+    salaTrack.innerHTML = '';
+    if (!blok || !blok.Sale || blok.Sale.length === 0) {
+      salaTrack.innerHTML = '<p class="empty-hint" style="margin:auto;">Brak sal w tym bloku.</p>';
+      return;
+    }
+    blok.Sale.forEach(sala => {
+      const col = document.createElement('div');
+      col.className = 'sala-col';
+      const naglowek = sala.nazwa_sali + (sala.nr_sali ? ' · ' + sala.nr_sali : '');
+      col.innerHTML = `<h3>${MyHelper.esc(naglowek)}</h3>` + (sala.Punkty_programu || []).map(p => `
+        <div class="punkt-card ${p.trwaTeraz ? 'trwa' : ''}">
+          <div class="p-nazwa">${MyHelper.esc(p.typ || '(bez nazwy)')}</div>
+          <div class="p-info">godziny: ${MyHelper.esc(p.start)}-${MyHelper.esc(p.koniec)}<br>prowadzący: ${MyHelper.esc(p['prowadzący'] || '—')}</div>
+        </div>
+      `).join('') || '<p class="empty-hint">Brak punktów programu.</p>';
+      salaTrack.appendChild(col);
+    });
+  }
+
+  function renderAktualnie(){
+    const trwajace = [];
+    (dane.Program || []).forEach(blok => (blok.Sale || []).forEach(sala => (sala.Punkty_programu || []).forEach(p => {
+      if (p.trwaTeraz) trwajace.push({ ...p, sala: sala.nazwa_sali, blok: blok.nazwa_bloku });
+    })));
+    aktualnieBox.innerHTML = trwajace.length === 0
+      ? '<p class="empty-hint" style="margin:0;">Nic nie trwa teraz.</p>'
+      : trwajace.map(p => `
+        <div class="aktualnie-item">
+          <div class="a-nazwa">${MyHelper.esc(p.typ || '(bez nazwy)')}</div>
+          <div class="a-info">${MyHelper.esc(p.sala)} · ${MyHelper.esc(p.start)}-${MyHelper.esc(p.koniec)}</div>
+        </div>
+      `).join('');
+  }
+
+  async function odswiez(zachowajWybor){
+    try {
+      dane = await MyHelper.wywolajApi('/api/program/z-podswietleniem');
+    } catch (err) {
+      if (err.status === 404) {
+        salaTrack.innerHTML = '<div class="stan-pusty" style="margin:auto;"><div class="ikona">🎤</div><h3>Brak wgranych danych</h3><p>Administrator nie wgrał jeszcze pliku programu.</p></div>';
+        aktualnieBox.innerHTML = '<p class="empty-hint" style="margin:0;">—</p>';
+      } else {
+        MyHelper.toast(err.message, 'error');
+      }
+      return;
+    }
+
+    document.getElementById('uwagaDzien').style.display = dane.pewnyDzien ? 'none' : 'block';
+
+    if (!zachowajWybor) {
+      const poprzedni = wyborBloku.value;
+      wyborBloku.innerHTML = (dane.Program || []).map(b => `<option value="${b.id}">${MyHelper.esc(b.nazwa_bloku)}</option>`).join('');
+      if (poprzedni && (dane.Program || []).some(b => b.id === poprzedni)) wyborBloku.value = poprzedni;
+    }
+
+    renderBlok();
+    renderAktualnie();
+  }
+
+  wyborBloku.addEventListener('change', renderBlok);
+
+  document.getElementById('strzalkaLewo').addEventListener('click', () => salaTrack.scrollBy({ left: -260, behavior: 'smooth' }));
+  document.getElementById('strzalkaPrawo').addEventListener('click', () => salaTrack.scrollBy({ left: 260, behavior: 'smooth' }));
+
+  odswiez(false);
+  setInterval(() => odswiez(true), 30000);
+})();
+</script>
+</body>
+</html>

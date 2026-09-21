@@ -1,0 +1,572 @@
+{
+  "Wolontariusze": [
+    {
+      "id": "sro7c0w1",
+      "nazwa": "Grue"
+    },
+    {
+      "id": "bofm2tpa",
+      "nazwa": "Simson"
+    },
+    {
+      "id": "tw4sp63u",
+      "nazwa": "Libe"
+    },
+    {
+      "id": "2v0q3nhz",
+      "nazwa": "Fullmetal"
+    },
+    {
+      "id": "o423a8m2",
+      "nazwa": "bożo"
+    },
+    {
+      "id": "hgfli9aj",
+      "nazwa": "pastorek"
+    },
+    {
+      "id": "q0y44rmw",
+      "nazwa": "cypher"
+    },
+    {
+      "id": "9sfxytup",
+      "nazwa": "tejku"
+    },
+    {
+      "id": "p7xp761p",
+      "nazwa": "skrzat"
+    }
+  ],
+  "Działy": [
+    {
+      "id": "gr5m0ft0",
+      "nazwa": "Lotni",
+      "color": "#2f5df0",
+      "wolontariusze_dzialu": [
+        "sro7c0w1",
+        "bofm2tpa",
+        "tw4sp63u"
+      ],
+      "godz_start": "09:00",
+      "godz_koniec": "17:00",
+      "dlugosc_dyzuru": 1,
+      "Grafik_dzialu": {
+        "Dni": [
+          {
+            "data": "2026-08-26",
+            "start_dnia": "09:00",
+            "koniec_dnia": "23:59",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "09:00",
+                "start_dyzuru": "09:00",
+                "koniec_dyzuru": "10:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "10:00",
+                "start_dyzuru": "10:00",
+                "koniec_dyzuru": "11:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "11:00",
+                "start_dyzuru": "11:00",
+                "koniec_dyzuru": "12:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "12:00",
+                "start_dyzuru": "12:00",
+                "koniec_dyzuru": "13:00",
+                "wolontariusze": [
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "13:00",
+                "start_dyzuru": "13:00",
+                "koniec_dyzuru": "14:00",
+                "wolontariusze": [
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "14:00",
+                "start_dyzuru": "14:00",
+                "koniec_dyzuru": "15:00",
+                "wolontariusze": [
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "15:00",
+                "start_dyzuru": "15:00",
+                "koniec_dyzuru": "16:00",
+                "wolontariusze": [
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "16:00",
+                "start_dyzuru": "16:00",
+                "koniec_dyzuru": "17:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "17:00",
+                "start_dyzuru": "17:00",
+                "koniec_dyzuru": "18:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "18:00",
+                "start_dyzuru": "18:00",
+                "koniec_dyzuru": "19:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "19:00",
+                "start_dyzuru": "19:00",
+                "koniec_dyzuru": "20:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "20:00",
+                "start_dyzuru": "20:00",
+                "koniec_dyzuru": "21:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "21:00",
+                "start_dyzuru": "21:00",
+                "koniec_dyzuru": "22:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "22:00",
+                "start_dyzuru": "22:00",
+                "koniec_dyzuru": "23:00",
+                "wolontariusze": [
+                  "tw4sp63u",
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "23:00",
+                "start_dyzuru": "23:00",
+                "koniec_dyzuru": "23:59",
+                "wolontariusze": [
+                  "tw4sp63u",
+                  "sro7c0w1"
+                ]
+              }
+            ]
+          },
+          {
+            "data": "2026-08-27",
+            "start_dnia": "09:00",
+            "koniec_dnia": "17:00",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "09:00",
+                "start_dyzuru": "09:00",
+                "koniec_dyzuru": "10:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "10:00",
+                "start_dyzuru": "10:00",
+                "koniec_dyzuru": "11:00",
+                "wolontariusze": [
+                  "sro7c0w1"
+                ]
+              },
+              {
+                "id_dyzuru": "11:00",
+                "start_dyzuru": "11:00",
+                "koniec_dyzuru": "12:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "12:00",
+                "start_dyzuru": "12:00",
+                "koniec_dyzuru": "13:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "13:00",
+                "start_dyzuru": "13:00",
+                "koniec_dyzuru": "14:00",
+                "wolontariusze": [
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "14:00",
+                "start_dyzuru": "14:00",
+                "koniec_dyzuru": "15:00",
+                "wolontariusze": [
+                  "tw4sp63u"
+                ]
+              },
+              {
+                "id_dyzuru": "15:00",
+                "start_dyzuru": "15:00",
+                "koniec_dyzuru": "16:00",
+                "wolontariusze": [
+                  "sro7c0w1",
+                  "bofm2tpa"
+                ]
+              },
+              {
+                "id_dyzuru": "16:00",
+                "start_dyzuru": "16:00",
+                "koniec_dyzuru": "17:00",
+                "wolontariusze": [
+                  "sro7c0w1",
+                  "bofm2tpa"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hf1k6h09",
+      "nazwa": "magazyn",
+      "color": "#f6b93b",
+      "wolontariusze_dzialu": [
+        "2v0q3nhz",
+        "q0y44rmw",
+        "9sfxytup"
+      ],
+      "godz_start": "09:00",
+      "godz_koniec": "17:00",
+      "dlugosc_dyzuru": 1,
+      "Grafik_dzialu": {
+        "Dni": [
+          {
+            "data": "2026-08-26",
+            "start_dnia": "18:00",
+            "koniec_dnia": "23:59",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "18:00",
+                "start_dyzuru": "18:00",
+                "koniec_dyzuru": "19:00",
+                "wolontariusze": [
+                  "9sfxytup"
+                ]
+              },
+              {
+                "id_dyzuru": "19:00",
+                "start_dyzuru": "19:00",
+                "koniec_dyzuru": "20:00",
+                "wolontariusze": [
+                  "9sfxytup"
+                ]
+              },
+              {
+                "id_dyzuru": "20:00",
+                "start_dyzuru": "20:00",
+                "koniec_dyzuru": "21:00",
+                "wolontariusze": [
+                  "9sfxytup"
+                ]
+              },
+              {
+                "id_dyzuru": "21:00",
+                "start_dyzuru": "21:00",
+                "koniec_dyzuru": "22:00",
+                "wolontariusze": [
+                  "q0y44rmw"
+                ]
+              },
+              {
+                "id_dyzuru": "22:00",
+                "start_dyzuru": "22:00",
+                "koniec_dyzuru": "23:00",
+                "wolontariusze": [
+                  "q0y44rmw"
+                ]
+              },
+              {
+                "id_dyzuru": "23:00",
+                "start_dyzuru": "23:00",
+                "koniec_dyzuru": "23:59",
+                "wolontariusze": [
+                  "q0y44rmw"
+                ]
+              }
+            ]
+          },
+          {
+            "data": "2026-08-27",
+            "start_dnia": "09:00",
+            "koniec_dnia": "17:00",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "09:00",
+                "start_dyzuru": "09:00",
+                "koniec_dyzuru": "10:00",
+                "wolontariusze": [
+                  "2v0q3nhz"
+                ]
+              },
+              {
+                "id_dyzuru": "10:00",
+                "start_dyzuru": "10:00",
+                "koniec_dyzuru": "11:00",
+                "wolontariusze": [
+                  "2v0q3nhz"
+                ]
+              },
+              {
+                "id_dyzuru": "11:00",
+                "start_dyzuru": "11:00",
+                "koniec_dyzuru": "12:00",
+                "wolontariusze": [
+                  "2v0q3nhz"
+                ]
+              },
+              {
+                "id_dyzuru": "12:00",
+                "start_dyzuru": "12:00",
+                "koniec_dyzuru": "13:00",
+                "wolontariusze": [
+                  "9sfxytup"
+                ]
+              },
+              {
+                "id_dyzuru": "13:00",
+                "start_dyzuru": "13:00",
+                "koniec_dyzuru": "14:00",
+                "wolontariusze": [
+                  "2v0q3nhz"
+                ]
+              },
+              {
+                "id_dyzuru": "14:00",
+                "start_dyzuru": "14:00",
+                "koniec_dyzuru": "15:00",
+                "wolontariusze": [
+                  "q0y44rmw"
+                ]
+              },
+              {
+                "id_dyzuru": "15:00",
+                "start_dyzuru": "15:00",
+                "koniec_dyzuru": "16:00",
+                "wolontariusze": [
+                  "9sfxytup",
+                  "2v0q3nhz"
+                ]
+              },
+              {
+                "id_dyzuru": "16:00",
+                "start_dyzuru": "16:00",
+                "koniec_dyzuru": "17:00",
+                "wolontariusze": [
+                  "q0y44rmw"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "7hh03vmc",
+      "nazwa": "Program",
+      "color": "#e8501f",
+      "wolontariusze_dzialu": [
+        "o423a8m2",
+        "hgfli9aj",
+        "p7xp761p"
+      ],
+      "godz_start": "09:00",
+      "godz_koniec": "17:00",
+      "dlugosc_dyzuru": 1,
+      "Grafik_dzialu": {
+        "Dni": [
+          {
+            "data": "2026-08-26",
+            "start_dnia": "09:00",
+            "koniec_dnia": "17:00",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "09:00",
+                "start_dyzuru": "09:00",
+                "koniec_dyzuru": "10:00",
+                "wolontariusze": [
+                  "hgfli9aj"
+                ]
+              },
+              {
+                "id_dyzuru": "10:00",
+                "start_dyzuru": "10:00",
+                "koniec_dyzuru": "11:00",
+                "wolontariusze": [
+                  "hgfli9aj"
+                ]
+              },
+              {
+                "id_dyzuru": "11:00",
+                "start_dyzuru": "11:00",
+                "koniec_dyzuru": "12:00",
+                "wolontariusze": [
+                  "hgfli9aj"
+                ]
+              },
+              {
+                "id_dyzuru": "12:00",
+                "start_dyzuru": "12:00",
+                "koniec_dyzuru": "13:00",
+                "wolontariusze": [
+                  "hgfli9aj"
+                ]
+              },
+              {
+                "id_dyzuru": "13:00",
+                "start_dyzuru": "13:00",
+                "koniec_dyzuru": "14:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              },
+              {
+                "id_dyzuru": "14:00",
+                "start_dyzuru": "14:00",
+                "koniec_dyzuru": "15:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              },
+              {
+                "id_dyzuru": "15:00",
+                "start_dyzuru": "15:00",
+                "koniec_dyzuru": "16:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              },
+              {
+                "id_dyzuru": "16:00",
+                "start_dyzuru": "16:00",
+                "koniec_dyzuru": "17:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              }
+            ]
+          },
+          {
+            "data": "2026-08-27",
+            "start_dnia": "09:00",
+            "koniec_dnia": "17:00",
+            "dlugosc_dyzuru": 1,
+            "dyzury": [
+              {
+                "id_dyzuru": "09:00",
+                "start_dyzuru": "09:00",
+                "koniec_dyzuru": "10:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              },
+              {
+                "id_dyzuru": "10:00",
+                "start_dyzuru": "10:00",
+                "koniec_dyzuru": "11:00",
+                "wolontariusze": [
+                  "p7xp761p"
+                ]
+              },
+              {
+                "id_dyzuru": "11:00",
+                "start_dyzuru": "11:00",
+                "koniec_dyzuru": "12:00",
+                "wolontariusze": [
+                  "hgfli9aj",
+                  "o423a8m2"
+                ]
+              },
+              {
+                "id_dyzuru": "12:00",
+                "start_dyzuru": "12:00",
+                "koniec_dyzuru": "13:00",
+                "wolontariusze": [
+                  "hgfli9aj",
+                  "o423a8m2"
+                ]
+              },
+              {
+                "id_dyzuru": "13:00",
+                "start_dyzuru": "13:00",
+                "koniec_dyzuru": "14:00",
+                "wolontariusze": [
+                  "o423a8m2"
+                ]
+              },
+              {
+                "id_dyzuru": "14:00",
+                "start_dyzuru": "14:00",
+                "koniec_dyzuru": "15:00",
+                "wolontariusze": [
+                  "o423a8m2"
+                ]
+              },
+              {
+                "id_dyzuru": "15:00",
+                "start_dyzuru": "15:00",
+                "koniec_dyzuru": "16:00",
+                "wolontariusze": [
+                  "o423a8m2"
+                ]
+              },
+              {
+                "id_dyzuru": "16:00",
+                "start_dyzuru": "16:00",
+                "koniec_dyzuru": "17:00",
+                "wolontariusze": [
+                  "o423a8m2"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

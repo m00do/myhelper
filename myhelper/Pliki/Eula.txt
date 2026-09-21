@@ -1,0 +1,14 @@
+WARUNKI UŻYTKOWANIA - MyHelper
+================================
+
+Aplikacja MyHelper służy do zarządzania konwentami: tworzenia kont
+poszczególnych paneli (administrator, program, kadry, magazyn, sklepik)
+oraz publikowania stron internetowych tych paneli w sieci lokalnej.
+
+Korzystając z aplikacji akceptujesz, że:
+1. Dane logowania (hasła) przechowywane są lokalnie w formie hashowanej.
+2. Publikacja stron w sieci lokalnej udostępnia je wszystkim urządzeniom
+   podłączonym do tej samej sieci.
+3. Autorzy aplikacji nie ponoszą odpowiedzialności za utratę danych.
+
+Przewiń w dół, aby zaakceptować lub odrzucić warunki.

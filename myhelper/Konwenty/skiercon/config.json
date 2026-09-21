@@ -1,0 +1,11 @@
+{
+    "nazwa": "Skiercon",
+    "Login_root": "Chrzan",
+    "Password_root": "$2b$12$VvVaGeI4k62kDKA1GrDJ0O2C/DtLPoqLa5ZerbM8n6fEFSOWsCjxW",
+    "LAN_DNS_enable": true,
+    "KADRY": true,
+    "PROGRAM": true,
+    "MAGAZYN": false,
+    "SKLEPIK": false,
+    "slug": "skiercon"
+}

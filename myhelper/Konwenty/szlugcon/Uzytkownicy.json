@@ -1,0 +1,12 @@
+[
+    {
+        "login": "Włóczykij",
+        "Password_hash": "$2b$12$EfIFYo8n6DtszyX8JFNPNujZSehnm.o9.uFDv2chIevbmYzWy6/0m",
+        "rola": "sklepik"
+    },
+    {
+        "login": "Simson",
+        "Password_hash": "$2b$12$8rroCr7Q3TCRhtbBnmRnUO2d1DGybRShnGVDIUKu.RO2QSorvPdq6",
+        "rola": "kadry"
+    }
+]
